@@ -1,15 +1,22 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
+import robotsModule from './modules/robots';
+import usersModules from './modules/users';
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    cart: [],
+    foo: 'root-foo',
   },
-  mutations: {
-    addRobotToCart(state, robot) {
-      state.cart.push(robot);
+  modules: {
+    robots: robotsModule,
+    users: usersModules,
+  },
+  getters: {
+    foo(state) {
+      return `root-getter/${state.foo}`;
     },
   },
 });

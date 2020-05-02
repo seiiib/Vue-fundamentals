@@ -18,6 +18,9 @@
           <router-link class="nav-link" to="/cart" exact>
             Cart
           </router-link>
+          <div class="cart-items">
+            {{cart.length}}
+          </div>
         </li>
       </ul>
       </nav>
@@ -34,18 +37,26 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex';
+
 export default {
   name: 'App',
   computed: {
+    ...mapState({
+      rootFoo: 'foo',
+      usersFoo: (state) => state.users.foo,
+    }),
+    ...mapState('robots', { robotsFoo: 'foo' }),
+    ...mapGetters({ rootGetterFoo: 'foo' }),
+    ...mapGetters('robots', { robotsGetterFoo: 'foo' }),
     cart() {
-      return this.$store.cart;
+      return this.$store.state.robots.cart;
     },
   },
 };
 </script>
 
 <style>
-
 body {
   background: linear-gradient(to bottom, #555, #999);
   background-attachment: fixed;
@@ -108,5 +119,15 @@ ul {
   width: 100px;
   min-height: 300px;
 }
-
+.cart-items {
+  position: absolute;
+  top: -5px;
+  right: -9px;
+  font-size: 18px;
+  width: 20px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 100px;
+  background-color: mediumseagreen;
+}
 </style>
